@@ -1,8 +1,12 @@
 import './App.css'
 import { useTodos } from './useTodos'
 import { TodoList } from './TodoList'
+import { useAuth } from './useAuth'
+import { AuthForm } from './AuthForm'
 
 function App() {
+  const auth = useAuth()
+
   const {
     todos,
     inputValue,
@@ -17,12 +21,22 @@ function App() {
     deleteTodo,
     handleKeyPress,
     setEditingId
-  } = useTodos()
+  } = useTodos(auth.currentUser)
+
+  if (!auth.isAuthenticated) {
+    return <AuthForm {...auth} />
+  }
 
   return (
     <div className="app-container">
       <div className="todo-card">
-        <h1>Todo List</h1>
+        <div className="todo-header">
+          <h1>Todo List</h1>
+          <div>
+            <span className="user-label">Hi, {auth.currentUser}</span>
+            <button onClick={auth.handleLogout} className="btn btn-delete">Logout</button>
+          </div>
+        </div>
 
         <div className="input-section">
           <input
@@ -43,7 +57,7 @@ function App() {
         </div>
 
         {todos.length === 0 ? (
-          <p className="empty-state">No todos yet. Add one to get started!</p>
+          <p className="empty-state">No todos.</p>
         ) : (
           <TodoList
             todos={todos}

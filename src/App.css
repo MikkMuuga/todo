@@ -7,19 +7,51 @@
 
 .app-container {
   width: 100%;
-  max-width: 400px;
-  padding: 0 5rem;
+  max-width: 460px;
+  padding: 1rem;
+  margin-left: 1000px;
 }
 
 .todo-card {
   background: white;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   padding: 1.5rem;
-  position: absolute;
-  right: 1100px;
-  top: 30em;
+  position: relative;
+  margin: 1rem auto;
+  max-width: 100%;
 }
+
+.auth-card {
+  max-width: 100%;
+}
+
+.todo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.user-label {
+  margin-right: 0.75rem;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.auth-switch {
+  display: flex;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+
+.info-text {
+  margin-top: 1rem;
+  font-size: 0.82rem;
+  color: #666;
+}
+
 
 h1 {
   color: #333;
@@ -139,6 +171,12 @@ h1 {
   text-align: center;
   color: #999;
   padding: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.error-message {
+  color: #cc0000;
+  margin-top: 0.5rem;
   font-size: 0.9rem;
 }
 

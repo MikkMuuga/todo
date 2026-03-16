@@ -11,7 +11,7 @@ export function TodoList({
   setEditingId
 }) {
   if (todos.length === 0) {
-    return <p className="empty-state">No todos yet. Add one to get started!</p>
+    return <p className="empty-state">No todos.</p>
   }
 
   return (

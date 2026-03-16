@@ -1,17 +1,38 @@
 import { useState, useEffect } from 'react'
 
-export function useTodos() {
-  const [todos, setTodos] = useState(() => {
-    const saved = localStorage.getItem('todos')
-    return saved ? JSON.parse(saved) : []
-  })
+export function useTodos(username) {
+  const storageKey = username ? `todos-${username}` : null
+
+  const [todos, setTodos] = useState([])
   const [inputValue, setInputValue] = useState('')
   const [editingId, setEditingId] = useState(null)
   const [editingText, setEditingText] = useState('')
 
+  const [initialized, setInitialized] = useState(false)
+
   useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos))
-  }, [todos])
+    if (!storageKey) {
+      setTodos([])
+      setInitialized(true)
+      return
+    }
+
+    const saved = localStorage.getItem(storageKey)
+
+    if (saved) {
+      setTodos(JSON.parse(saved))
+      setInitialized(true)  
+      return
+    }
+
+    setTodos([])
+    setInitialized(true)
+  }, [storageKey])
+
+  useEffect(() => {
+    if (!storageKey || !initialized) return
+    localStorage.setItem(storageKey, JSON.stringify(todos))
+  }, [todos, storageKey, initialized])
 
   const addTodo = () => {
     if (inputValue.trim() === '') return
